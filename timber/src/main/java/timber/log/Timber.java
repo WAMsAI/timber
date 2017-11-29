@@ -534,21 +534,17 @@ public final class Timber {
       if (!isLoggable(tag, priority)) {
         return;
       }
-      if (message != null && message.length() == 0) {
-        message = null;
-      }
       if (message == null) {
-        if (t == null) {
-          return; // Swallow message if it's null and there's no throwable.
-        }
-        message = getStackTraceString(t);
-      } else {
-        if (args != null && args.length > 0) {
-          message = formatMessage(message, args);
-        }
-        if (t != null) {
-          message += "\n" + getStackTraceString(t);
-        }
+        message = "NULL log message";
+      }
+      else if (message.length() == 0) {
+        message = "Empty log message";
+      }
+      if (args != null && args.length > 0) {
+        message = formatMessage(message, args);
+      }
+      if (t != null) {
+        message += "\n" + getStackTraceString(t);
       }
 
       log(priority, tag, message, t);
